@@ -52,4 +52,7 @@ dependencies {
     implementation "com.google.dagger:dagger-android-support:$rootProject.dagger2Version"
     kapt "com.google.dagger:dagger-compiler:$rootProject.dagger2Version"
     kapt "com.google.dagger:dagger-android-processor:$rootProject.dagger2Version"
+
+    implementation 'com.mapbox.mapboxsdk:mapbox-android-sdk:8.1.0'
+
 }

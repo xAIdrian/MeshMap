@@ -1,12 +1,9 @@
 package com.zhudapps.meshmap.daggerdi.activity
 
-import dagger.Module
-import android.app.Activity
-import dagger.android.AndroidInjector
+import com.zhudapps.meshmap.daggerdi.fragment.FragmentBuilder
 import com.zhudapps.meshmap.map.MainActivity
-import dagger.android.ActivityKey
-import dagger.multibindings.IntoMap
-import dagger.Binds
+import dagger.Module
+import dagger.android.ContributesAndroidInjector
 
 
 /**
@@ -15,8 +12,6 @@ import dagger.Binds
 @Module
 abstract class ActivityBuilder {
 
-    @Binds
-    @IntoMap
-    @ActivityKey(MainActivity::class)
-    internal abstract fun bindMainActivity(builder: MainActivityComponent.Builder): AndroidInjector.Factory<out Activity>
+    @ContributesAndroidInjector(modules = [FragmentBuilder::class])
+    internal abstract fun bindMainActivity(): MainActivity
 }

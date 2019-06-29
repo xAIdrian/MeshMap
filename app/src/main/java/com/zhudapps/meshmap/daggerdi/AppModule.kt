@@ -2,7 +2,7 @@ package com.zhudapps.meshmap.daggerdi
 
 import android.app.Application
 import android.content.Context
-import com.zhudapps.meshmap.daggerdi.activity.MainActivityComponent
+import com.zhudapps.meshmap.daggerdi.fragment.MapFragmentComponent
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
@@ -10,7 +10,7 @@ import javax.inject.Singleton
 /**
  * Created by adrian mohnacs on 2019-06-28
  */
-@Module(subcomponents = [ MainActivityComponent::class ])
+@Module(subcomponents = [ MapFragmentComponent::class ])
 class AppModule {
 
     @Provides
