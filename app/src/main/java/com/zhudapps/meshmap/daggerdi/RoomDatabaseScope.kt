@@ -1,4 +1,4 @@
-package com.zhudapps.meshmap.dagger
+package com.zhudapps.meshmap.daggerdi
 
 /**
  * Created by adrian mohnacs on 2019-06-28

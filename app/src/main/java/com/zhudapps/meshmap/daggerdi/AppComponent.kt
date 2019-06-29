@@ -1,9 +1,9 @@
-package com.zhudapps.meshmap.dagger
+package com.zhudapps.meshmap.daggerdi
 
 import android.app.Application
 import com.zhudapps.meshmap.AwesomeMeshMapApp
-import com.zhudapps.meshmap.dagger.activity.ActivityBuilder
-import com.zhudapps.meshmap.dagger.fragment.FragmentBuilder
+import com.zhudapps.meshmap.daggerdi.activity.ActivityBuilder
+import com.zhudapps.meshmap.daggerdi.fragment.FragmentBuilder
 import dagger.BindsInstance
 import dagger.Component
 import dagger.android.AndroidInjectionModule

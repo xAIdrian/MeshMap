@@ -1,4 +1,4 @@
-package com.zhudapps.meshmap.dagger.activity
+package com.zhudapps.meshmap.daggerdi.activity
 
 import dagger.Module
 import android.app.Activity

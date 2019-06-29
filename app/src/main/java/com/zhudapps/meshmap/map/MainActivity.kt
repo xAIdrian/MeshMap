@@ -11,19 +11,18 @@ import com.google.android.material.navigation.NavigationView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import android.view.Menu
-import com.zhudapps.meshmap.MainNavigation
 import com.zhudapps.meshmap.R
 import com.zhudapps.meshmap.model.MapPin
+import dagger.android.AndroidInjection
+import dagger.android.HasActivityInjector
 
-class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener, MainNavigation {
-
-    override fun getPinList(): List<MapPin> {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
+class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener, MainNavigationContract {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        //in our dagger dependency graph we are using AndroidInjector to build our graph and injects those dependencies
+        AndroidInjection.inject(this)
+
         setContentView(R.layout.activity_main)
         val toolbar: Toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)

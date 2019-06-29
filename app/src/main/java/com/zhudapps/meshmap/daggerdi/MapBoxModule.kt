@@ -1,4 +1,4 @@
-package com.zhudapps.meshmap.dagger
+package com.zhudapps.meshmap.daggerdi
 
 import dagger.Module
 

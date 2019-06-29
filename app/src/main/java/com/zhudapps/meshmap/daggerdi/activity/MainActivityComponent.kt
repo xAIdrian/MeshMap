@@ -1,4 +1,4 @@
-package com.zhudapps.meshmap.dagger.activity
+package com.zhudapps.meshmap.daggerdi.activity
 
 import com.zhudapps.meshmap.map.MainActivity
 import dagger.Subcomponent

@@ -1,6 +1,6 @@
-package com.zhudapps.meshmap.dagger.activity
+package com.zhudapps.meshmap.daggerdi.activity
 
-import com.zhudapps.meshmap.MainNavigation
+import com.zhudapps.meshmap.map.MainNavigationContract
 import dagger.Module
 import dagger.Provides
 import com.zhudapps.meshmap.map.MainActivity
@@ -11,7 +11,7 @@ import com.zhudapps.meshmap.map.MainActivity
 class MainActivityModule {
 
     @Provides
-    fun provideMainView(mainActivity: MainActivity): MainNavigation {
+    fun provideMainView(mainActivity: MainActivity): MainNavigationContract {
         return mainActivity
     }
 
