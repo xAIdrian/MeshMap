@@ -1,5 +1,6 @@
 package com.zhudapps.meshmap.map
 
+import androidx.fragment.app.Fragment
 import android.os.Bundle
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
@@ -13,10 +14,14 @@ import androidx.appcompat.widget.Toolbar
 import android.view.Menu
 import com.zhudapps.meshmap.R
 import com.zhudapps.meshmap.model.MapPin
-import dagger.android.AndroidInjection
-import dagger.android.HasActivityInjector
+import dagger.android.*
+import dagger.android.support.HasSupportFragmentInjector
+import javax.inject.Inject
 
-class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener, MainNavigationContract {
+class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener, MainNavigationContract, HasSupportFragmentInjector {
+
+    @Inject
+    lateinit var fragmentDispatchingAndroidInjector: DispatchingAndroidInjector<Fragment>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -95,5 +100,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
         drawerLayout.closeDrawer(GravityCompat.START)
         return true
+    }
+
+    override fun supportFragmentInjector(): AndroidInjector<Fragment> {
+        return fragmentDispatchingAndroidInjector
     }
 }

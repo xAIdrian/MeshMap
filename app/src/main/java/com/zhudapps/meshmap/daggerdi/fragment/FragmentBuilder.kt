@@ -9,6 +9,7 @@ import dagger.android.ContributesAndroidInjector
  */
 @Module
 abstract class FragmentBuilder {
+
     @ContributesAndroidInjector
     internal abstract fun provideMapFragment(): MapFragment
 }

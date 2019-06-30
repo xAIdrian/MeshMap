@@ -3,6 +3,7 @@ package com.zhudapps.meshmap.daggerdi
 import android.app.Application
 import android.content.Context
 import com.zhudapps.meshmap.daggerdi.fragment.MapFragmentComponent
+import dagger.Binds
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
@@ -15,7 +16,7 @@ class AppModule {
 
     @Provides
     @Singleton
-    fun provideContent(app: Application): Context {
+    fun provideContext(app: Application): Context {
         return app
     }
 }
