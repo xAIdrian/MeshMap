@@ -1,22 +1,20 @@
 package com.zhudapps.meshmap.map
 
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import com.mapbox.mapboxsdk.Mapbox
 import com.mapbox.mapboxsdk.maps.OnMapReadyCallback
 import com.mapbox.mapboxsdk.maps.Style
 import com.zhudapps.meshmap.R
-import dagger.android.support.AndroidSupportInjection
+import com.zhudapps.meshmap.base.BaseFragment
 import kotlinx.android.synthetic.main.map_fragment.*
 import javax.inject.Inject
 
 
-class MapFragment : Fragment() {
+class MapFragment : BaseFragment<MapFragmentViewModel>() {
 
     companion object {
         //fun newInstance() = MapFragment()
@@ -25,11 +23,16 @@ class MapFragment : Fragment() {
     @Inject
     lateinit var mapBox: Mapbox
 
-    private lateinit var viewModel: MapViewModel
+    private lateinit var viewModel: MapFragmentViewModel
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         mapView.onSaveInstanceState(outState)
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        viewModel = ViewModelProviders.of(this).get(MapFragmentViewModel::class.java)
     }
 
     override fun onCreateView(
@@ -56,14 +59,7 @@ class MapFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProviders.of(this).get(MapViewModel::class.java)
-        // TODO: Use the ViewModel
-    }
-
-    override fun onAttach(context: Context?) {
-        AndroidSupportInjection.inject(this);
-        super.onAttach(context)
-
+        viewModel.getMapPins()
     }
 
     override fun onStart() {
@@ -96,4 +92,7 @@ class MapFragment : Fragment() {
         mapView.onDestroy()
     }
 
+    override fun getViewModel(): MapFragmentViewModel {
+        return viewModel
+    }
 }

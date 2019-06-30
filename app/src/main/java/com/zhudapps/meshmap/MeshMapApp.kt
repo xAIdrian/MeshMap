@@ -28,7 +28,6 @@ class MeshMapApp: Application(), HasActivityInjector {
             .application(this)
             .build()
             .inject(this)
-
         //use android networking if we are having a hard time AndroidNetworking.initialize(getApplicationContext());
     }
 }
