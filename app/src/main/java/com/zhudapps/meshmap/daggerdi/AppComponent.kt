@@ -1,9 +1,10 @@
 package com.zhudapps.meshmap.daggerdi
 
 import android.app.Application
-import com.zhudapps.meshmap.AwesomeMeshMapApp
+import com.zhudapps.meshmap.MeshMapApp
 import com.zhudapps.meshmap.daggerdi.activity.ActivityBuilder
 import com.zhudapps.meshmap.daggerdi.fragment.FragmentBuilder
+import com.zhudapps.meshmap.daggerdi.fragment.MapFragmentModule
 import dagger.BindsInstance
 import dagger.Component
 import dagger.android.AndroidInjectionModule
@@ -17,7 +18,8 @@ import javax.inject.Singleton
     AndroidInjectionModule::class,
     AppModule::class,
     ActivityBuilder::class,
-    FragmentBuilder::class
+    FragmentBuilder::class,
+    MapFragmentModule::class //don't forget to expose all your modules to ensure dependencies are provided
 ])
 interface AppComponent {
 
@@ -28,5 +30,5 @@ interface AppComponent {
         fun build(): AppComponent
     }
 
-    fun inject(app: AwesomeMeshMapApp)
+    fun inject(app: MeshMapApp)
 }

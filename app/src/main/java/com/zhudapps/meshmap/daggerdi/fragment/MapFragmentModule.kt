@@ -1,10 +1,10 @@
 package com.zhudapps.meshmap.daggerdi.fragment
 
 import android.content.Context
+import com.mapbox.mapboxsdk.Mapbox
+import com.zhudapps.meshmap.BuildConfig
 import dagger.Module
 import dagger.Provides
-import com.mapbox.mapboxsdk.Mapbox;
-import com.zhudapps.meshmap.BuildConfig
 
 /**
  * Created by adrian mohnacs on 2019-06-29

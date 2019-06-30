@@ -12,7 +12,7 @@ import dagger.android.DispatchingAndroidInjector
 /**
  * Created by adrian mohnacs on 2019-06-28
  */
-class AwesomeMeshMapApp: Application(), HasActivityInjector {
+class MeshMapApp: Application(), HasActivityInjector {
 
     @Inject
     lateinit var activityDispatchingAndroidInjector: DispatchingAndroidInjector<Activity>
