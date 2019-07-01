@@ -19,7 +19,8 @@ import javax.inject.Singleton
     AppModule::class,
     ActivityBuilder::class,
     FragmentBuilder::class,
-    MapFragmentModule::class //don't forget to expose all your modules to ensure dependencies are provided
+    MapFragmentModule::class, //don't forget to expose all your modules to ensure dependencies are provided
+    RoomModule::class
 ])
 interface AppComponent {
 

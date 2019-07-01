@@ -31,4 +31,5 @@ ext {
     dagger2Version = '2.16'
     androidXVersion = '2.0.0'
     navigationVersion = '2.0.0'
+    roomVersion = '1.1.1'
 }
