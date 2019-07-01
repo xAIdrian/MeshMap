@@ -9,4 +9,5 @@ import javax.inject.Inject
 class DataManager @Inject constructor(
     val appDatabase: RoomDatabase
 ): IDataManager {
+
 }

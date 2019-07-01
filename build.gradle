@@ -32,4 +32,5 @@ ext {
     androidXVersion = '2.0.0'
     navigationVersion = '2.0.0'
     roomVersion = '1.1.1'
+    retrofitVersion = '2.5.0'
 }

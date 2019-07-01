@@ -3,10 +3,9 @@ package com.zhudapps.meshmap
 import android.app.Activity
 import android.app.Application
 import com.zhudapps.meshmap.daggerdi.DaggerAppComponent
+import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasActivityInjector
 import javax.inject.Inject
-import dagger.android.DispatchingAndroidInjector
-
 
 
 /**
