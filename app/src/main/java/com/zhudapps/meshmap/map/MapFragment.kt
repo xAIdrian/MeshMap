@@ -1,9 +1,11 @@
 package com.zhudapps.meshmap.map
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.mapbox.mapboxsdk.Mapbox
 import com.mapbox.mapboxsdk.maps.OnMapReadyCallback
@@ -33,6 +35,13 @@ class MapFragment : BaseFragment<MapFragmentViewModel>() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewModel = ViewModelProviders.of(this).get(MapFragmentViewModel::class.java)
+        initListeners()
+    }
+
+    private fun initListeners() {
+        viewModel.mapPinsList.observe(this, Observer {
+            Log.e("tester", it.toString())
+        })
     }
 
     override fun onCreateView(

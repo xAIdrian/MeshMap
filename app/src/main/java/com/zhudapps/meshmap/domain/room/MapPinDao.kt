@@ -12,6 +12,7 @@ import io.reactivex.Single
  */
 @Dao
 interface MapPinDao {
+
     @Query("SELECT * FROM pins")
     fun getPins(): Single<List<MapPin>>
 
