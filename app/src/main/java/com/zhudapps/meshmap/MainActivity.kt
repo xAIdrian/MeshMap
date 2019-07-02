@@ -13,6 +13,9 @@ import com.google.android.material.navigation.NavigationView
 import dagger.android.AndroidInjection
 import dagger.android.support.DaggerAppCompatActivity
 import kotlinx.android.synthetic.main.activity_main_coordinator.*
+import android.content.Intent
+import android.net.Uri
+
 
 class MainActivity : DaggerAppCompatActivity(), NavigationView.OnNavigationItemSelectedListener,
     MainNavigationContract {
@@ -82,26 +85,28 @@ class MainActivity : DaggerAppCompatActivity(), NavigationView.OnNavigationItemS
         // Handle navigation view item clicks here.
         when (item.itemId) {
             R.id.nav_home -> {
-                // Handle the camera action
+                sendToWeb("https://play.google.com/store/apps/details?id=com.zhudapps.materialcultured")
             }
             R.id.nav_gallery -> {
-
-            }
-            R.id.nav_slideshow -> {
-
-            }
-            R.id.nav_tools -> {
-
+                sendToWeb("https://play.google.com/store/apps/details?id=com.zhudapps.materialcuteapp")
             }
             R.id.nav_share -> {
-
+                sendToWeb("https://www.github.com/amohnacs15")
             }
             R.id.nav_send -> {
 
+                sendToWeb("https://seedtowealth.com/")
             }
         }
         val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
         drawerLayout.closeDrawer(GravityCompat.START)
         return true
+    }
+
+    private fun sendToWeb(url: String) {
+
+        val i = Intent(Intent.ACTION_VIEW)
+        i.data = Uri.parse(url)
+        startActivity(i)
     }
 }
