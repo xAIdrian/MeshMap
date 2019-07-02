@@ -8,6 +8,8 @@ import com.zhudapps.meshmap.daggerdi.fragment.MapFragmentModule
 import dagger.BindsInstance
 import dagger.Component
 import dagger.android.AndroidInjectionModule
+import dagger.android.AndroidInjector
+import dagger.android.support.AndroidSupportInjectionModule
 import javax.inject.Singleton
 
 /**
@@ -15,11 +17,11 @@ import javax.inject.Singleton
  */
 @Singleton
 @Component(modules = [
-    AndroidInjectionModule::class,
+    AndroidSupportInjectionModule::class,
     AppModule::class,
     ActivityBuilder::class,
     FragmentBuilder::class,
-    MapFragmentModule::class //don't forget to expose all your modules to ensure dependencies are provided
+    RoomModule::class
 ])
 interface AppComponent {
 
