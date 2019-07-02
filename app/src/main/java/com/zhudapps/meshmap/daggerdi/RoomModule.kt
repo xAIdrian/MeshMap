@@ -22,7 +22,6 @@ class RoomModule {
 
     @Singleton
     @Provides
-    @UserScope
     internal fun providesProductDao(context: Context): MapPinDao {
         return Room.databaseBuilder(
             context,
@@ -33,14 +32,12 @@ class RoomModule {
 
     @Singleton
     @Provides
-    @UserScope
     internal fun productRepository(productDao: MapPinDao, api: TennaClient): MapPinsRepository {
         return MapPinsRepository(productDao, api)
     }
 
     @Provides
     @Singleton
-    @UserScope
     fun providesTennaClient(): TennaClient {
         return ApiServiceGenerator.createService(TennaClient::class.java)
     }
