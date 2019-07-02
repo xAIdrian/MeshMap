@@ -26,3 +26,9 @@ Not too many as time got the best of me.
 
 Give me another day or two and I will know your socks off!
 
+<a href="https://play.google.com/store/apps/details?id=com.zhudapps.meshmap">
+  <img alt="Get it on Google Play"
+       width="150"
+       src="https://play.google.com/intl/en_us/badges/images/generic/en-play-badge.png" />
+</a>
+
