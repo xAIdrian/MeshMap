@@ -14,4 +14,6 @@
     <string name="menu_share">Share</string>
     <string name="menu_send">Send</string>
     <string name="room_database">mesh_map_room_database</string>
+    <string name="please_permission">Oops. You still don\'t have permission</string>
+    <string name="grant">Give Permission</string>
 </resources>

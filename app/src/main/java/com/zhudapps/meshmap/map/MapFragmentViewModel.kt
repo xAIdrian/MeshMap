@@ -22,6 +22,7 @@ class MapFragmentViewModel @Inject constructor(
 
     companion object {
         const val SOURCE_ID = "mapbox_source"
+        const val MY_PERMISSION_FINE_LOCATION = 98
     }
 
     val mapPinsList = MutableLiveData<List<MapPin>>()
