@@ -26,4 +26,3 @@ Not too many as time got the best of me.
 
 Give me another day or two and I will know your socks off!
 
-![Screenshot_20190702-091517_MeshMap](https://user-images.githubusercontent.com/7444521/60528798-21fb4700-9caa-11e9-981d-9b18775e6f7a.jpg)
