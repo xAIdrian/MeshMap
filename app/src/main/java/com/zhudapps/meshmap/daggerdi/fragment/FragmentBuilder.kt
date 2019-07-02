@@ -1,6 +1,7 @@
 package com.zhudapps.meshmap.daggerdi.fragment
 
 import com.zhudapps.meshmap.map.MapFragment
+import com.zhudapps.meshmap.map.MapListDialogFragment
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 

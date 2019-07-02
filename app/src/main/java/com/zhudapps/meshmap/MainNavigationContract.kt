@@ -1,4 +1,4 @@
-package com.zhudapps.meshmap.map
+package com.zhudapps.meshmap
 
 import com.zhudapps.meshmap.model.MapPin
 
