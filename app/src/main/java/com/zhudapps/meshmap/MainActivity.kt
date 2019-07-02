@@ -7,14 +7,17 @@ import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
+import androidx.navigation.findNavController
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.navigation.NavigationView
-import com.google.android.material.snackbar.Snackbar
 import dagger.android.AndroidInjection
 import dagger.android.support.DaggerAppCompatActivity
+import kotlinx.android.synthetic.main.activity_main_coordinator.*
 
 class MainActivity : DaggerAppCompatActivity(), NavigationView.OnNavigationItemSelectedListener,
     MainNavigationContract {
+
+    private var clickToList = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,6 +39,18 @@ class MainActivity : DaggerAppCompatActivity(), NavigationView.OnNavigationItemS
         toggle.syncState()
 
         navView.setNavigationItemSelectedListener(this)
+
+        fab.setOnClickListener {
+            if (clickToList) {
+                findNavController(R.id.nav_host_fragment).navigate(R.id.action_mapFragment_to_mapListFragment)
+                clickToList = false
+                (it as FloatingActionButton).setImageResource(R.drawable.ic_pin_drop_white_24dp)
+            } else {
+                findNavController(R.id.nav_host_fragment).navigate(R.id.action_mapListFragment_to_mapFragment)
+                clickToList = true
+                (it as FloatingActionButton).setImageResource(R.drawable.ic_format_list_bulleted_white_24dp)
+            }
+        }
     }
 
     override fun onBackPressed() {
