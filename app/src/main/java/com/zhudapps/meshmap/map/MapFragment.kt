@@ -27,7 +27,9 @@ import com.mapbox.mapboxsdk.maps.Style
 import com.zhudapps.meshmap.R
 import com.zhudapps.meshmap.base.BaseFragment
 import com.zhudapps.meshmap.base.ViewModelProviderFactory
+import com.zhudapps.meshmap.daggerdi.fragment.MapFragmentModule
 import com.zhudapps.meshmap.map.MapFragmentViewModel.Companion.MY_PERMISSION_FINE_LOCATION
+import dagger.android.ContributesAndroidInjector
 import kotlinx.android.synthetic.main.map_fragment.*
 import javax.inject.Inject
 
@@ -52,6 +54,7 @@ class MapFragment : BaseFragment<MapFragmentViewModel>(), OnMapReadyCallback, Pe
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         viewModel = ViewModelProviders.of(this, factory).get(MapFragmentViewModel::class.java)
         if (::factory.isInitialized) {
             initListeners()
@@ -60,7 +63,7 @@ class MapFragment : BaseFragment<MapFragmentViewModel>(), OnMapReadyCallback, Pe
 
     private fun initListeners() {
         viewModel.mapPinsList.observe(this, Observer { list ->
-            Log.e("temptag", list.toString())
+            MapListDialogFragment(list).show(fragmentManager, "listDialogFragment")
 
             list.forEach {
                 map?.addMarker(

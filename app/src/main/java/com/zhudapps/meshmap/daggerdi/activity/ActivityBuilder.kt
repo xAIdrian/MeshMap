@@ -1,7 +1,7 @@
 package com.zhudapps.meshmap.daggerdi.activity
 
 import com.zhudapps.meshmap.daggerdi.fragment.FragmentBuilder
-import com.zhudapps.meshmap.map.MainActivity
+import com.zhudapps.meshmap.MainActivity
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 

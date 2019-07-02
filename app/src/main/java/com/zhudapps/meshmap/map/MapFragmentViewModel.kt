@@ -18,22 +18,13 @@ import javax.inject.Inject
 
 class MapFragmentViewModel @Inject constructor(
     val manager: DataManager
-) : ViewModel(), PermissionsListener {
+) : ViewModel() {
 
     companion object {
-        const val SOURCE_ID = "mapbox_source"
         const val MY_PERMISSION_FINE_LOCATION = 98
     }
 
     val mapPinsList = MutableLiveData<List<MapPin>>()
-
-    override fun onExplanationNeeded(permissionsToExplain: MutableList<String>?) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
-    override fun onPermissionResult(granted: Boolean) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
 
     @SuppressLint("CheckResult")
     fun getMapPins() {
@@ -42,14 +33,5 @@ class MapFragmentViewModel @Inject constructor(
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe (
                 { mapPinsList.value = it }, { Log.e("grrrrr", it.message) })
-    }
-
-    fun buildFeatureSource(pins: List<MapPin>?): Source {
-        val featureList:ArrayList<Feature> = ArrayList()
-
-        pins?.forEach { pin ->
-            featureList.add(Feature.fromGeometry(Point.fromLngLat(pin.latitude.toDouble(), pin.longitude.toDouble())))
-        }
-        return GeoJsonSource(SOURCE_ID, FeatureCollection.fromFeatures(featureList))
     }
 }
