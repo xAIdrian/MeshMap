@@ -7,14 +7,20 @@ import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
+import androidx.navigation.findNavController
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.navigation.NavigationView
-import com.google.android.material.snackbar.Snackbar
 import dagger.android.AndroidInjection
 import dagger.android.support.DaggerAppCompatActivity
+import kotlinx.android.synthetic.main.activity_main_coordinator.*
+import android.content.Intent
+import android.net.Uri
+
 
 class MainActivity : DaggerAppCompatActivity(), NavigationView.OnNavigationItemSelectedListener,
     MainNavigationContract {
+
+    private var clickToList = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,6 +42,18 @@ class MainActivity : DaggerAppCompatActivity(), NavigationView.OnNavigationItemS
         toggle.syncState()
 
         navView.setNavigationItemSelectedListener(this)
+
+        fab.setOnClickListener {
+            if (clickToList) {
+                findNavController(R.id.nav_host_fragment).navigate(R.id.action_mapFragment_to_mapListFragment)
+                clickToList = false
+                (it as FloatingActionButton).setImageResource(R.drawable.ic_pin_drop_white_24dp)
+            } else {
+                findNavController(R.id.nav_host_fragment).navigate(R.id.action_mapListFragment_to_mapFragment)
+                clickToList = true
+                (it as FloatingActionButton).setImageResource(R.drawable.ic_format_list_bulleted_white_24dp)
+            }
+        }
     }
 
     override fun onBackPressed() {
@@ -67,26 +85,28 @@ class MainActivity : DaggerAppCompatActivity(), NavigationView.OnNavigationItemS
         // Handle navigation view item clicks here.
         when (item.itemId) {
             R.id.nav_home -> {
-                // Handle the camera action
+                sendToWeb("https://play.google.com/store/apps/details?id=com.zhudapps.materialcultured")
             }
             R.id.nav_gallery -> {
-
-            }
-            R.id.nav_slideshow -> {
-
-            }
-            R.id.nav_tools -> {
-
+                sendToWeb("https://play.google.com/store/apps/details?id=com.zhudapps.materialcuteapp")
             }
             R.id.nav_share -> {
-
+                sendToWeb("https://www.github.com/amohnacs15")
             }
             R.id.nav_send -> {
 
+                sendToWeb("https://seedtowealth.com/")
             }
         }
         val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
         drawerLayout.closeDrawer(GravityCompat.START)
         return true
+    }
+
+    private fun sendToWeb(url: String) {
+
+        val i = Intent(Intent.ACTION_VIEW)
+        i.data = Uri.parse(url)
+        startActivity(i)
     }
 }

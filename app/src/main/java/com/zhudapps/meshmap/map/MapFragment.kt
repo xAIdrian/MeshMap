@@ -49,7 +49,9 @@ class MapFragment : BaseFragment<MapFragmentViewModel>(), OnMapReadyCallback, Pe
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        mapView.onSaveInstanceState(outState)
+        if(mapView != null) {
+            mapView.onSaveInstanceState(outState)
+        }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -63,7 +65,6 @@ class MapFragment : BaseFragment<MapFragmentViewModel>(), OnMapReadyCallback, Pe
 
     private fun initListeners() {
         viewModel.mapPinsList.observe(this, Observer { list ->
-            MapListDialogFragment(list).show(fragmentManager, "listDialogFragment")
 
             list.forEach {
                 map?.addMarker(
@@ -100,32 +101,50 @@ class MapFragment : BaseFragment<MapFragmentViewModel>(), OnMapReadyCallback, Pe
 
     override fun onStart() {
         super.onStart()
-        mapView.onStart()
+        try {
+            mapView.onStart()
+        } catch (e: Exception) {
+            Log.e("mapfragment", "unable to get last location")
+        }
     }
 
     override fun onResume() {
         super.onResume()
-        mapView.onResume()
+        try {
+            mapView.onResume()
+        } catch (e: Exception) {
+            Log.e("mapfragment", "unable to get last location")
+        }
     }
 
     override fun onPause() {
         super.onPause()
-        mapView.onPause()
+        try {
+            mapView.onPause()
+        } catch (e: Exception) {
+            Log.e("mapfragment", "unable to get last location")
+        }
     }
 
     override fun onStop() {
         super.onStop()
-        mapView.onStop()
+        if (mapView != null) {
+            mapView.onStop()
+        }
     }
 
     override fun onLowMemory() {
         super.onLowMemory()
-        mapView.onLowMemory()
+        if (mapView != null) {
+            mapView.onLowMemory()
+        }
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        mapView.onDestroy()
+        if (mapView != null) {
+            mapView.onDestroy()
+        }
     }
 
     override fun getViewModel(): MapFragmentViewModel {

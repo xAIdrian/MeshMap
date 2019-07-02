@@ -1,4 +1,4 @@
-package com.zhudapps.meshmap.map
+package com.zhudapps.meshmap.maplist
 
 import android.annotation.SuppressLint
 import android.util.Log
@@ -16,7 +16,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
-class MapFragmentViewModel @Inject constructor(
+class MapListFragmentViewModel @Inject constructor(
     val manager: DataManager
 ) : ViewModel() {
 
@@ -24,7 +24,7 @@ class MapFragmentViewModel @Inject constructor(
         const val MY_PERMISSION_FINE_LOCATION = 98
     }
 
-    val mapPinsList = MutableLiveData<ArrayList<MapPin>>()
+    val mapPinsList = MutableLiveData<List<MapPin>>()
 
     @SuppressLint("CheckResult")
     fun getMapPins() {
@@ -32,6 +32,6 @@ class MapFragmentViewModel @Inject constructor(
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe (
-                { mapPinsList.value = it as ArrayList<MapPin> }, { Log.e("grrrrr", it.message) })
+                { mapPinsList.value = it }, { Log.e("grrrrr", it.message) })
     }
 }
