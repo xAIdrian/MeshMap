@@ -101,17 +101,29 @@ class MapFragment : BaseFragment<MapFragmentViewModel>(), OnMapReadyCallback, Pe
 
     override fun onStart() {
         super.onStart()
-        mapView.onStart()
+        try {
+            mapView.onStart()
+        } catch (e: Exception) {
+            Log.e("mapfragment", "unable to get last location")
+        }
     }
 
     override fun onResume() {
         super.onResume()
-        mapView.onResume()
+        try {
+            mapView.onResume()
+        } catch (e: Exception) {
+            Log.e("mapfragment", "unable to get last location")
+        }
     }
 
     override fun onPause() {
         super.onPause()
-        mapView.onPause()
+        try {
+            mapView.onPause()
+        } catch (e: Exception) {
+            Log.e("mapfragment", "unable to get last location")
+        }
     }
 
     override fun onStop() {
