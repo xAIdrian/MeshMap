@@ -7,7 +7,7 @@ import javax.inject.Scope
 /**
  * Created by adrian mohnacs on 2019-06-28
 // */
-//@Qualifier
-//@Retention(RetentionPolicy.CLASS)
-annotation class ActivityScope {
+@Scope
+@Retention(AnnotationRetention.RUNTIME)
+internal annotation class UserScope {
 }

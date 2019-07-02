@@ -3,6 +3,7 @@ package com.zhudapps.meshmap.daggerdi
 import android.app.Application
 import android.content.Context
 import androidx.room.Room
+import com.zhudapps.meshmap.daggerdi.scope.UserScope
 import com.zhudapps.meshmap.domain.api.ApiServiceGenerator
 import com.zhudapps.meshmap.domain.api.TennaClient
 import com.zhudapps.meshmap.domain.repo.MapPinsRepository
@@ -21,6 +22,7 @@ class RoomModule {
 
     @Singleton
     @Provides
+    @UserScope
     internal fun providesProductDao(context: Context): MapPinDao {
         return Room.databaseBuilder(
             context,
@@ -31,12 +33,14 @@ class RoomModule {
 
     @Singleton
     @Provides
+    @UserScope
     internal fun productRepository(productDao: MapPinDao, api: TennaClient): MapPinsRepository {
         return MapPinsRepository(productDao, api)
     }
 
     @Provides
     @Singleton
+    @UserScope
     fun providesTennaClient(): TennaClient {
         return ApiServiceGenerator.createService(TennaClient::class.java)
     }
