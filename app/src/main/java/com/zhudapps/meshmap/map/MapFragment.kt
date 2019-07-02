@@ -7,7 +7,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import com.mapbox.geojson.Point
 import com.mapbox.mapboxsdk.Mapbox
+import com.mapbox.mapboxsdk.annotations.MarkerOptions
+import com.mapbox.mapboxsdk.geometry.LatLng
+import com.mapbox.mapboxsdk.maps.MapboxMap
 import com.mapbox.mapboxsdk.maps.OnMapReadyCallback
 import com.mapbox.mapboxsdk.maps.Style
 import com.zhudapps.meshmap.R
@@ -16,20 +20,16 @@ import com.zhudapps.meshmap.base.ViewModelProviderFactory
 import kotlinx.android.synthetic.main.map_fragment.*
 import javax.inject.Inject
 
+class MapFragment : BaseFragment<MapFragmentViewModel>(), OnMapReadyCallback {
 
-class MapFragment : BaseFragment<MapFragmentViewModel>() {
-
-    companion object {
-        //fun newInstance() = MapFragment()
-    }
-
-    @Inject
+    @Inject //initialization is the only thing needed here
     lateinit var mapBox: Mapbox
 
     @Inject
     lateinit var factory: ViewModelProviderFactory
 
     private lateinit var viewModel: MapFragmentViewModel
+    private var map: MapboxMap? = null
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
@@ -43,8 +43,21 @@ class MapFragment : BaseFragment<MapFragmentViewModel>() {
     }
 
     private fun initListeners() {
-        viewModel.mapPinsList.observe(this, Observer {
-            Log.e("tester", it.toString())
+        viewModel.mapPinsList.observe(this, Observer { list ->
+            Log.e("temptag", list.toString())
+
+            list.forEach {
+                map?.addMarker(
+                    MarkerOptions()
+                        .setSnippet(it.description)
+                        .position(
+                            LatLng(
+                                it.latitude.toDouble(),
+                                it.longitude.toDouble()
+                            )
+                        )
+                )
+            }
         })
     }
 
@@ -57,17 +70,8 @@ class MapFragment : BaseFragment<MapFragmentViewModel>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         mapView.onCreate(savedInstanceState)
-        mapView.getMapAsync(OnMapReadyCallback { mapboxMap ->
-            mapboxMap.setStyle(Style.MAPBOX_STREETS, object : Style.OnStyleLoaded {
-                override fun onStyleLoaded(style: Style) {
-                    // Map is set up and the style has loaded. Now you can add data or make other map adjustments
-
-
-                }
-            })
-        })
+        mapView.getMapAsync(this)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -107,5 +111,20 @@ class MapFragment : BaseFragment<MapFragmentViewModel>() {
 
     override fun getViewModel(): MapFragmentViewModel {
         return viewModel
+    }
+
+    override fun onMapReady(mapboxMap: MapboxMap) {
+        this.map = mapboxMap
+
+        if (mapboxMap.markers.isNotEmpty()) {
+            mapboxMap.clear()
+        }
+
+        mapboxMap.setStyle(Style.MAPBOX_STREETS, object : Style.OnStyleLoaded {
+            override fun onStyleLoaded(style: Style) {
+                // Map is set up and the style has loaded. Now you can add data or make other map adjustments
+                Log.e("temptag", "map loaded")
+            }
+        })
     }
 }
