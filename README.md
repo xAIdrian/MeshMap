@@ -4,19 +4,19 @@
 
 MeshMap is an android application that get's the user's location shows a few pins from the endpoint https://annetog.gotenna.com/development/scripts/get_map_pins.php and displays them on the map.  This same data is available in a list format.
 
-- [ ] Create a mobile app the platform you are applying to that implements a MapBox map. You will then have to download an array of Pin data that needs to be saved to persistent storage of your choosing.
+- [x] Create a mobile app the platform you are applying to that implements a MapBox map. You will then have to download an array of Pin data that needs to be saved to persistent storage of your choosing.
 
-- [ ] Create a mobile app the platform you are applying to that implements a MapBox map.
+- [x] Create a mobile app the platform you are applying to that implements a MapBox map.
 
-- [ ] Download a JSON array of Pin data that can be found here: https://annetog.gotenna.com/development/scripts/get_map_pins.php
+- [x] Download a JSON array of Pin data that can be found here: https://annetog.gotenna.com/development/scripts/get_map_pins.php
 
-- [ ] Save the data to persistent storage of your choice.
+- [x] Save the data to persistent storage of your choice.
 
-- [ ] Display the user’s location on the map.
+- [x] Display the user’s location on the map.
 
-- [ ] Display the Pin data on the map.
+- [x] Display the Pin data on the map.
 
-- [ ] Display the Pin data in a list.
+- [x] Display the Pin data in a list.
 
 ### Bonus Features
 
