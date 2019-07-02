@@ -7,5 +7,11 @@
     <fragment android:id="@+id/mapFragment"
               android:name="com.zhudapps.meshmap.map.MapFragment"
               android:label="map_fragment"
-              tools:layout="@layout/map_fragment"/>
+              tools:layout="@layout/map_fragment">
+        <action android:id="@+id/action_mapFragment_to_mapListFragment" app:destination="@id/mapListFragment"/>
+    </fragment>
+    <fragment android:id="@+id/mapListFragment" android:name="com.zhudapps.meshmap.maplist.MapListFragment"
+              android:label="fragment_item_list" tools:layout="@layout/fragment_item_list">
+        <action android:id="@+id/action_mapListFragment_to_mapFragment" app:destination="@id/mapFragment"/>
+    </fragment>
 </navigation>

@@ -29,6 +29,6 @@
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|end"
             android:layout_margin="@dimen/fab_margin"
-            meshMapApp:srcCompat="@android:drawable/ic_dialog_email"/>
+            meshMapApp:srcCompat="@drawable/ic_format_list_bulleted_white_24dp"/>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
