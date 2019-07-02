@@ -1,21 +1,26 @@
 package com.zhudapps.meshmap.map
 
 import android.Manifest
+import android.annotation.SuppressLint
 import android.app.Activity
-import android.content.pm.PackageManager
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.google.android.material.snackbar.Snackbar
+import com.mapbox.android.core.permissions.PermissionsListener
+import com.mapbox.android.core.permissions.PermissionsManager
 import com.mapbox.mapboxsdk.Mapbox
 import com.mapbox.mapboxsdk.annotations.MarkerOptions
 import com.mapbox.mapboxsdk.geometry.LatLng
+import com.mapbox.mapboxsdk.location.LocationComponentActivationOptions
+import com.mapbox.mapboxsdk.location.modes.CameraMode
+import com.mapbox.mapboxsdk.location.modes.RenderMode
 import com.mapbox.mapboxsdk.maps.MapboxMap
 import com.mapbox.mapboxsdk.maps.OnMapReadyCallback
 import com.mapbox.mapboxsdk.maps.Style
@@ -27,9 +32,7 @@ import kotlinx.android.synthetic.main.map_fragment.*
 import javax.inject.Inject
 
 
-
-
-class MapFragment : BaseFragment<MapFragmentViewModel>(), OnMapReadyCallback {
+class MapFragment : BaseFragment<MapFragmentViewModel>(), OnMapReadyCallback, PermissionsListener {
 
     @Inject //initialization is the only thing needed here
     lateinit var mapBox: Mapbox
@@ -39,6 +42,8 @@ class MapFragment : BaseFragment<MapFragmentViewModel>(), OnMapReadyCallback {
 
     private lateinit var viewModel: MapFragmentViewModel
     private var map: MapboxMap? = null
+
+    private val permissionsManager = PermissionsManager(this)
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
@@ -50,39 +55,6 @@ class MapFragment : BaseFragment<MapFragmentViewModel>(), OnMapReadyCallback {
         viewModel = ViewModelProviders.of(this, factory).get(MapFragmentViewModel::class.java)
         if (::factory.isInitialized) {
             initListeners()
-
-            activity?.let {
-                if (ContextCompat.checkSelfPermission(it, Manifest.permission.ACCESS_FINE_LOCATION)
-                    != PackageManager.PERMISSION_GRANTED) {
-                    // Permission is not granted
-
-                    // Should we show an explanation?
-                    if (ActivityCompat.shouldShowRequestPermissionRationale(it,
-                            Manifest.permission.ACCESS_FINE_LOCATION)) {
-                        // Show an explanation to the user *asynchronously* -- don't block
-                        // this thread waiting for the user's response! After the user
-                        // sees the explanation, try again to request the permission.
-
-                        //user has already denied the permission
-                        Snackbar.make(
-                            it.findViewById(android.R.id.content),
-                            R.string.please_permission,
-                            Snackbar.LENGTH_INDEFINITE
-                        ).setAction(R.string.grant, ShowPermissionRequest()).show()
-
-                    } else {
-                        // No explanation needed, we can request the permission.
-                        ActivityCompat.requestPermissions(it,
-                            arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
-                            MY_PERMISSION_FINE_LOCATION)
-
-                        // ACCESS_FINE_LOCATION is an app-defined int constant.
-                        // The callback method gets the result of the request.
-                    }
-                } else {
-                    // Permission has already been granted
-                }
-            }
         }
     }
 
@@ -166,30 +138,54 @@ class MapFragment : BaseFragment<MapFragmentViewModel>(), OnMapReadyCallback {
 
         mapboxMap.setStyle(Style.MAPBOX_STREETS) {
             // Map is set up and the style has loaded. Now you can add data or make other map adjustments
-            Log.e("temptag", "map loaded")
+            enableLocationComponent(it)
         }
     }
 
-    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
-        when(requestCode) {
-            MY_PERMISSION_FINE_LOCATION -> {
-                // If request is cancelled, the result arrays are empty.
-                if ((grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
-                    // permission was granted, yay! Do the
-                    // contacts-related task you need to do.
-                } else {
-                    // permission denied, boo! Disable the
-                    // functionality that depends on this permission.
-                }
-                return
-            }
-            // Add other 'when' lines to check for other
-            // permissions this app might request.
-            else -> {
-                // Ignore all other requests.
-            }
+    override fun onExplanationNeeded(permissionsToExplain: MutableList<String>?) {
+        activity?.findViewById<View>(R.id.content)?.let {
+            Snackbar.make(
+                it,
+                R.string.please_permission,
+                Snackbar.LENGTH_INDEFINITE
+            ).setAction(R.string.grant, ShowPermissionRequest()).show()
         }
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+    }
+
+    override fun onPermissionResult(granted: Boolean) {
+        if (granted) {
+            map?.getStyle(Style.OnStyleLoaded {
+                enableLocationComponent(it)
+            })
+        } else {
+            Toast.makeText(activity, R.string.user_location_permission_not_granted, Toast.LENGTH_LONG).show()
+        }
+    }
+
+
+    @SuppressLint("MissingPermission")
+    private fun enableLocationComponent(loadedMapStyle: Style) {
+        // Check if permissions are enabled and if not request
+        if (PermissionsManager.areLocationPermissionsGranted(activity)) {
+
+            // Get an instance of the component
+            val locationComponent = map?.locationComponent
+
+            // Activate with options
+            activity?.applicationContext?.let { LocationComponentActivationOptions.builder(it, loadedMapStyle).build() }
+                ?.let { locationComponent?.activateLocationComponent(it) }
+
+            // Enable to make component visible
+            locationComponent?.isLocationComponentEnabled = true
+
+            // Set the component's camera mode
+            locationComponent?.cameraMode = CameraMode.TRACKING
+
+            // Set the component's render mode
+            locationComponent?.renderMode = RenderMode.COMPASS
+        } else {
+            permissionsManager.requestLocationPermissions(activity)
+        }
     }
 
     inner class ShowPermissionRequest : View.OnClickListener {
@@ -199,7 +195,8 @@ class MapFragment : BaseFragment<MapFragmentViewModel>(), OnMapReadyCallback {
             ActivityCompat.requestPermissions(
                 activity as Activity,
                 arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
-                MY_PERMISSION_FINE_LOCATION)
+                MY_PERMISSION_FINE_LOCATION
+            )
         }
     }
 }
