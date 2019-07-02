@@ -12,9 +12,9 @@ import javax.inject.Inject
  * Created by adrian mohnacs on 2019-06-30
  */
 class MapPinsRepository @Inject constructor(
-    val dao: MapPinDao,
-    val retroClient: TennaClient
-): IMapPinsRepository {
+    private val dao: MapPinDao,
+    private val retroClient: TennaClient
+) : IMapPinsRepository {
 
     override fun getMapPins(): Observable<List<MapPin>> {
         return Observable.concatArray(
@@ -28,8 +28,7 @@ class MapPinsRepository @Inject constructor(
     }
 
     override fun getPinsFromApi(): Observable<List<MapPin>> {
-        return retroClient.fetchMapPins().filter { it.isEmpty() }
-            .doOnNext {
+        return retroClient.fetchMapPins().doOnNext {
                 storePinsInCache(it)
             }
     }

@@ -34,10 +34,4 @@ class AppModule {
             context.getString(R.string.room_database)
         ).build()
     }
-
-    @Provides
-    @Singleton
-    fun providesTennaClient(): TennaClient {
-        return ApiServiceGenerator.createService(TennaClient::class.java)
-    }
 }

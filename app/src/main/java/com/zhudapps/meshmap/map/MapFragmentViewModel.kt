@@ -13,16 +13,12 @@ class MapFragmentViewModel @Inject constructor(
     val manager: DataManager
 ) : ViewModel() {
 
-    companion object {
-        val TAG = MapFragmentViewModel::class.simpleName
-    }
-
     val mapPinsList = MutableLiveData<List<MapPin>>()
 
     fun getMapPins() {
         manager.getMapPins()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe ({ mapPinsList.value = it }, { Log.e(TAG, it.message) })
+            .subscribe ({ mapPinsList.value = it }, { Log.e("grrrrr", it.message) })
     }
 }

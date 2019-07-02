@@ -12,6 +12,7 @@ import com.mapbox.mapboxsdk.maps.OnMapReadyCallback
 import com.mapbox.mapboxsdk.maps.Style
 import com.zhudapps.meshmap.R
 import com.zhudapps.meshmap.base.BaseFragment
+import com.zhudapps.meshmap.base.ViewModelProviderFactory
 import kotlinx.android.synthetic.main.map_fragment.*
 import javax.inject.Inject
 
@@ -25,6 +26,9 @@ class MapFragment : BaseFragment<MapFragmentViewModel>() {
     @Inject
     lateinit var mapBox: Mapbox
 
+    @Inject
+    lateinit var factory: ViewModelProviderFactory
+
     private lateinit var viewModel: MapFragmentViewModel
 
     override fun onSaveInstanceState(outState: Bundle) {
@@ -34,7 +38,7 @@ class MapFragment : BaseFragment<MapFragmentViewModel>() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        viewModel = ViewModelProviders.of(this).get(MapFragmentViewModel::class.java)
+        viewModel = ViewModelProviders.of(this, factory).get(MapFragmentViewModel::class.java)
         initListeners()
     }
 

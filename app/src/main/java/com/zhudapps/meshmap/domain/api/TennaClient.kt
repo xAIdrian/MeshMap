@@ -9,6 +9,6 @@ import retrofit2.http.GET
  * Created by adrian mohnacs on 2019-06-30
  */
 interface TennaClient {
-    @GET("development/scripts/get_map_pins.php")
+    @GET("/development/scripts/get_map_pins.php")
     fun fetchMapPins(): Observable<List<MapPin>>
 }
