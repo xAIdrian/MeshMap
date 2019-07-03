@@ -4,7 +4,7 @@
 
 Okay maybe more like 22 hours 😬
 
-MeshMap is an android application that get's the user's location shows a few pins from the endpoint https://annetog.gotenna.com/development/scripts/get_map_pins.php and displays them on the map.  This same data is available in a list format.
+MeshMap is an android application that get's the user's location shows a few pins from the provided endpoint and displays them on the map.  This same data is available to the user in a list format.
 
 - [x] Create a mobile app the platform you are applying to that implements a MapBox map. You will then have to download an array of Pin data that needs to be saved to persistent storage of your choosing.
 
