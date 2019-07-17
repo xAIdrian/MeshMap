@@ -22,9 +22,5 @@ MeshMap is an android application that get's the user's location shows a few pin
 
 ### Bonus Features
 
-Not too many as time got the best of me.
-
-Give me another day or two and I will know your socks off!
-
 ![Screen Shot 2019-07-03 at 8 42 23 AM](https://user-images.githubusercontent.com/7444521/60605515-88499d80-9d6e-11e9-810f-c262a7a28f55.png)
 
